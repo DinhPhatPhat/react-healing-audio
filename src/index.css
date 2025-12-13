@@ -3,35 +3,68 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+  color: #000;
+  /* chữ đen */
+  background-color: #EFE9E3;
+  /* nền sáng */
 }
 
+/* Container chính */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* GIỚI THIỆU */
+section h1 {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+section p {
+  text-align: center;
+  line-height: 1.6;
+  color: #000000;
+}
+
+/* AUDIO PLAYER */
 #audio-player {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
+  background-color: #F9F8F6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#category-image {
-  height: 300px;
-  width: 300px;
+#audio-player img {
+  width: 200px;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 #audio-name {
-  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-#audio-buttons {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
+#category-name {
+  color: #777;
+  margin-bottom: 10px;
+}
+
+#audio-player audio {
+  width: 100%;
+  margin-top: 15px;
+}
+
+section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #222;
 }

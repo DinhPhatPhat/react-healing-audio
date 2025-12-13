@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { categories, audios } from "./data";
 import CategoryList from "./CategoryList";
-import AudioList from "./AudioList";
+import AudioModal from "./AudioModal"
+import './index.css'
 
 export default function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [currentAudio, setCurrentAudio] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const audioRef = useRef(null);
+
+  const handleSelectCategory = (id) => {
+    setSelectedCategory(id);
+    setModalOpen(true);
+  };
+
 
   const filteredAudios = selectedCategory
     ? audios.filter(a => a.categoryId === selectedCategory)
@@ -15,15 +24,33 @@ export default function App() {
     ? categories.find(c => c.id === currentAudio.categoryId)
     : null;
 
+  //useEffect 1: save playing audio
+  useEffect(() => {
+    if (currentAudio) {
+      localStorage.setItem("currentAudio", JSON.stringify(currentAudio));
+    }
+  }, [currentAudio]);
+
+  //useEffect 2: title by playing audio 
+  useEffect(() => {
+    document.title = currentAudio ? currentAudio.title : "My way to heal";
+  }, [currentAudio]);
+
+  //useEffect 3: load saved audio 
+  useEffect(() => {
+    const savedAudio = localStorage.getItem("currentAudio");
+    if (savedAudio) setCurrentAudio(JSON.parse(savedAudio));
+  }, []);
+
+
   return (
     <div className="container">
 
       {/* GIỚI THIỆU */}
       <section>
-        <h1>My way to heal</h1>
+        <h1>Thư viện chữa lành của Phát Phát</h1>
         <p>
-          Đây là nơi mình lưu lại các audio/podcast yêu thích – những thứ giúp mình chữa lành,
-          bình an hơn, và nhắc nhở bản thân rằng mọi chuyện rồi cũng sẽ ổn 🕊️
+          Đây là nơi mình lưu lại các audio/podcast đã đồng hành cùng mình trong quá trình mình tìm lại bản thân.
         </p>
       </section>
 
@@ -31,26 +58,25 @@ export default function App() {
       <section style={{ marginTop: "20px" }}>
 
         {currentAudio ? (
-          <div id="audio-player" style={{ textAlign: "center" }}>
-            {/* Ảnh category */}
+          <div id="audio-player">
+            {/* Category image */}
             <img
               src={currentCategory?.image || "/placeholder.png"}
               alt={currentCategory?.name}
-              style={{ width: "200px", borderRadius: "10px", marginBottom: "10px" }}
             />
 
-            {/* Tên bài hát */}
-            <div id="audio-name" style={{ fontSize: "20px", fontWeight: "bold" }}>
+            {/* Audio name */}
+            <div id="audio-name">
               {currentAudio.title}
             </div>
 
-            {/* Tên category */}
-            <div id="category-name" style={{ color: "#777", marginBottom: "10px" }}>
+            {/* Category name */}
+            <div id="category-name">
               {currentCategory?.name}
             </div>
 
-            {/* Trình phát audio */}
-            <audio controls src={currentAudio.src} style={{ width: "100%", marginTop: "15px" }} />
+            {/* Audio player */}
+            <audio controls src={currentAudio.src} />
           </div>
         ) : (
           <p>— Chưa có bài nào được chọn —</p>
@@ -63,23 +89,15 @@ export default function App() {
         <h2>Danh mục</h2>
         <CategoryList
           categories={categories}
-          onSelect={setSelectedCategory}
+          onSelect={handleSelectCategory}
         />
       </section>
-
-      {/* DANH SÁCH AUDIO */}
-      <section style={{ marginTop: "30px" }}>
-        {selectedCategory && (
-          <>
-            <h2>Danh sách audio</h2>
-            <AudioList
-              audios={filteredAudios}
-              onPlay={setCurrentAudio}
-            />
-          </>
-        )}
-      </section>
-
+      <AudioModal
+        isOpen={modalOpen}
+        audios={filteredAudios}
+        onClose={() => setModalOpen(false)}
+        onPlay={setCurrentAudio}
+      />
     </div>
   );
 }
