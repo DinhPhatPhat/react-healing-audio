@@ -42,6 +42,14 @@ export default function App() {
     if (savedAudio) setCurrentAudio(JSON.parse(savedAudio));
   }, []);
 
+  //useEffect 4: auto play the chosen audio 
+  useEffect(() => {
+    if (currentAudio && audioRef.current) {
+      audioRef.current.play().catch(() => {
+        console.log("Autoplay bị chặn");
+      });
+    }
+  }, [currentAudio]);
 
   return (
     <div className="container">
@@ -76,10 +84,15 @@ export default function App() {
             </div>
 
             {/* Audio player */}
-            <audio controls src={currentAudio.src} />
+            <audio
+              ref={audioRef}
+              controls
+              src={currentAudio.src}
+            />
+
           </div>
         ) : (
-          <p>— Chưa có bài nào được chọn —</p>
+          <p>— Chưa có audio được chọn —</p>
         )}
 
       </section>

@@ -21,7 +21,6 @@ export default function AudioModal({ audios, isOpen, onClose, onPlay }) {
                 </div>
 
                 <div className="modal-body">
-                    {/* QUAN TRỌNG: truyền handlePlay */}
                     <AudioList audios={audios} onPlay={handlePlay} />
                 </div>
             </div>
