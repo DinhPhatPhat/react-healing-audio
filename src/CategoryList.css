@@ -1,9 +1,16 @@
 .category-item {
     display: flex;
     align-items: flex-start;
+<<<<<<< HEAD
     padding: 15px;
     border-radius: 10px;
     background-color: #630000;
+=======
+    /* canh ảnh và tên đầu trên */
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+>>>>>>> 413122a4cd3cde7d8b838f344325533c89540581
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -30,11 +37,15 @@
     font-weight: bold;
     font-size: 1rem;
     margin-bottom: 5px;
+<<<<<<< HEAD
     color: #EEEBDD;
+=======
+>>>>>>> 413122a4cd3cde7d8b838f344325533c89540581
 }
 
 .category-desc {
     font-size: 0.85rem;
+<<<<<<< HEAD
     color: #EEEBDD;
     line-height: 1.5;
     flex-basis: 100%;
@@ -44,9 +55,26 @@
 @media (max-width: 480px) {
     .category-item {
         align-items: center;
+=======
+    color: #555;
+    line-height: 1.5;
+    flex-basis: 100%;
+    /* cho desc chiếm hết dòng nếu màn hình hẹp */
+}
+
+/* Media query cho mobile: ảnh và tên vẫn cùng hàng, desc xuống dòng */
+@media (max-width: 480px) {
+    .category-item {
+        align-items: center;
+        /* ảnh + tên cùng hàng */
+>>>>>>> 413122a4cd3cde7d8b838f344325533c89540581
     }
 
     .category-desc {
         width: 100%;
+<<<<<<< HEAD
+=======
+        /* desc xuống dòng */
+>>>>>>> 413122a4cd3cde7d8b838f344325533c89540581
     }
 }
